@@ -7,6 +7,12 @@
     <title>Document</title>
     <!--bootstrap CDN  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQUERY  
+     <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+    </script> -->
 </head>
 <body>
     <div class="container">
@@ -14,12 +20,12 @@
             <h1 class="col-md-12">About You</h1>
                 <form>
             <div class="form-group col-md-12">
-                <label for="exampleInputEmail1">Name (Required)</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                <label for="nameInput">Name (Required)</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Name">
             </div>
             <div class="form-group col-md-12">
-                <label for="exampleInputPassword1">Link to Photo Image (Required)</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="photoInput">Link to Photo Image (Required)</label>
+                <input type="link" class="form-control" id="photoInput" placeholder="Photo Link">
             </div>
         </div>
         <div class="row3">
@@ -146,7 +152,7 @@
         <br>
 
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button" id="viewTable" >Go to Survey</a> 
+            <a class="btn btn-primary btn-lg" href="#" role="button" id="submitQuestions" >Go to Survey</a> 
         </p>
 
          <footer class="footer">
@@ -157,6 +163,65 @@
     </div>
 
     <!--modal  -->
+    <div id= "friendModal" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Best Match</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="newFriendName"></p>
+        <img id="newFriendPhoto" src="" alt="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!--JQUERY CDN  -->
+     <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+    </script> 
+    <!--bootstrap javascript  -->
+    <!--bootstrap javascript  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>    
+        $("#submitQuestions").on("click", function(event) {
+      event.preventDefault();
+
+      // Here we grab the form elements
+      var newFriend = {
+        Name: $("#nameInput").val().trim(),
+        Photo: $("#photoInput").val().trim(),
+        Scores: [$("#questionOne").val().trim(), $("#questionTwo").val().trim(), $("#questionThree").val().trim(), $("#questionFour").val().trim(), $("#questionFive").val().trim(), $("#questionSix").val().trim(), $("#questionSeven").val().trim(), $("#questionEight").val().trim(), $("#questionNine").val().trim(), $("#questionTen").val().trim()]
+      };
+
+      console.log(newFriend);
+
+      $.post("/api/friend", newFriend,
+        function(data) {
+          if (data) {
+            $("#newFriendName").text(data.Name);
+            $("#newFriendPhoto").attr("src", data.Photo);
+            $("#friendModal").modal("show");
+          }
+          else {
+            console.log("data did not submit");
+          }
+
+        });
+
+    });
+
+    </script>
     
 
 
