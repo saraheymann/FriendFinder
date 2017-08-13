@@ -18,8 +18,6 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 //         res.sendFile(path.join(__dirname, "/app/public/home.html"));
 //     });
 
-// app.use(express.static('app'));
-
 require("./app/routing/htmlRoutes.js")(app);
 
 
