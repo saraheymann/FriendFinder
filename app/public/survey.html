@@ -7,12 +7,7 @@
     <title>Document</title>
     <!--bootstrap CDN  -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- JQUERY  
-     <script
-        src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous">
-    </script> -->
+    
 </head>
 <body>
     <div class="container">
@@ -190,42 +185,53 @@
         crossorigin="anonymous">
     </script> 
     <!--bootstrap javascript  -->
-    <!--bootstrap javascript  -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script>    
+   <script>   
+//  create new friend with button click
         $("#submitQuestions").on("click", function(event) {
-      event.preventDefault();
+            event.preventDefault();
 
-      // Here we grab the form elements
-      var newFriend = {
-        Name: $("#nameInput").val().trim(),
-        Photo: $("#photoInput").val().trim(),
-        Scores: [$("#questionOne").val().trim(), $("#questionTwo").val().trim(), $("#questionThree").val().trim(), $("#questionFour").val().trim(), $("#questionFive").val().trim(), $("#questionSix").val().trim(), $("#questionSeven").val().trim(), $("#questionEight").val().trim(), $("#questionNine").val().trim(), $("#questionTen").val().trim()]
-      };
+            // grab the form elements
+            var newFriend = {
+                Name: $("#nameInput").val().trim(),
+                Photo: $("#photoInput").val().trim(),
+                Scores: [
+                    $("#questionOne").val().trim(), 
+                    $("#questionTwo").val().trim(), 
+                    $("#questionThree").val().trim(), 
+                    $("#questionFour").val().trim(), 
+                    $("#questionFive").val().trim(), 
+                    $("#questionSix").val().trim(), 
+                    $("#questionSeven").val().trim(), 
+                    $("#questionEight").val().trim(), 
+                    $("#questionNine").val().trim(), 
+                    $("#questionTen").val().trim()
+                ]
+        };
+            console.log(newFriend);
+            var currentURL = window.location.origin;
+    
+// send the data to api/friend, and then grab the data from the matching logic and display in the modal
+      
+        $.post(currentURL + "/api/friends", newFriend,
+            function(data) {
+                if (data) {
+                    $("#newFriendName").text(data.Name);
+                    $("#newFriendPhoto").attr("src", data.Photo);
+                    $("#friendModal").modal("show");
 
-      console.log(newFriend);
+                    console.log("this is working");
+                }
+                else {
+                    console.log("data did not submit");
+                }
 
-      $.post("/api/friend", newFriend,
-        function(data) {
-          if (data) {
-            $("#newFriendName").text(data.Name);
-            $("#newFriendPhoto").attr("src", data.Photo);
-            $("#friendModal").modal("show");
-          }
-          else {
-            console.log("data did not submit");
-          }
+            });
 
         });
 
-    });
-
     </script>
-    
-
-
- 
     
 </body>
 </html>

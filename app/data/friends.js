@@ -1,5 +1,6 @@
 // gets info from the #submitQuestions button
-// Feeds it to the javascript after the modal to find the match
+// Feeds it to post match javascript
+// feeds that to the modal
 // submit button pops up the modal
 var friendArray = {
     "Name": "Gary",

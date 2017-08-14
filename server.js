@@ -10,13 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// app.get("/survey", function(req, res) {
-//   res.sendFile(path.join(__dirname, "/app/public/survey.html"));
-// });
- 
-// app.use(function(req, res) {
-//         res.sendFile(path.join(__dirname, "/app/public/home.html"));
-//     });
+app.use(express.static(path.join(__dirname + '/app/public')));
 
 require("./app/routing/htmlRoutes.js")(app);
 require("./app/routing/apiRoutes.js")(app);
