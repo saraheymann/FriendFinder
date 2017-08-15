@@ -17,6 +17,6 @@ require("./app/routing/htmlRoutes.js")(app);
 require("./app/routing/apiRoutes.js")(app);
 
 
-app.listen(port, function(){
+app.listen(app.get('port'), function(){
     console.log('running on 3000')
 });
